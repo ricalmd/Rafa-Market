@@ -20,5 +20,9 @@ namespace Rafa_Market.Data
         }
 
         public System.Data.Entity.DbSet<Rafa_Market.Models.Product> Products { get; set; }
+
+        public System.Data.Entity.DbSet<Rafa_Market.Models.DocumentType> DocumentTypes { get; set; }
+
+        public System.Data.Entity.DbSet<Rafa_Market.Models.Employee> Employees { get; set; }
     }
 }
