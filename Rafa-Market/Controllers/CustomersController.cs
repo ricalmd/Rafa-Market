@@ -12,112 +12,114 @@ using Rafa_Market.Models;
 
 namespace Rafa_Market.Controllers
 {
-    public class EmployeesController : Controller
+    public class CustomersController : Controller
     {
         private Rafa_MarketContext db = new Rafa_MarketContext();
 
-        // GET: Employees
+        // GET: Customers
         public ActionResult Index()
         {
-            var employees = db.Employees.Include(e => e.DocumentType);
-            return View(employees.ToList());
+            var customers = db.Customers.Include(c => c.DocumentType);
+            return View(customers.ToList());
         }
 
-        // GET: Employees/Details/5
+        // GET: Customers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(customer);
         }
 
-        // GET: Employees/Create
+        // GET: Customers/Create
         public ActionResult Create()
         {
             ViewBag.DocumentTypeID = new SelectList(CombosHelper.GetDocumentTypes(), "DocumentTypeID", "Description");
             return View();
         }
 
-        // POST: Employees/Create
+        // POST: Customers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeID,FirstName,LastName,Salary,BonusPercent,DateOfBirth,StartTime,Email,URL,DocumentTypeID")] Employee employee)
-        {
+        public ActionResult Create([Bind(Include = "CustomerID,FirstName,LastName,Phone,Address,Email,Document,DocumentTypeID")] Customer customer)
+        { 
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employee);
+                db.Customers.Add(customer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DocumentTypeID = new SelectList(CombosHelper.GetDocumentTypes(), "DocumentTypeID", "Description", employee.DocumentTypeID);
-            return View(employee);
+            ViewBag.DocumentTypeID = new SelectList(CombosHelper.GetDocumentTypes(), "DocumentTypeID", "Description", customer.DocumentTypeID);
+
+            return View(customer);
         }
 
-        // GET: Employees/Edit/5
+        // GET: Customers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", employee.DocumentTypeID);
-            return View(employee);
+
+            ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", customer.DocumentTypeID);
+            return View(customer);
         }
 
-        // POST: Employees/Edit/5
+        // POST: Customers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmployeeID,FirstName,LastName,Salary,BonusPercent,DateOfBirth,StartTime,Email,URL,DocumentTypeID")] Employee employee)
+        public ActionResult Edit([Bind(Include = "CustomerID,FirstName,LastName,Phone,Address,Email,Document,DocumentTypeID")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
+                db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", employee.DocumentTypeID);
-            return View(employee);
+            ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", customer.DocumentTypeID);
+            return View(customer);
         }
 
-        // GET: Employees/Delete/5
+        // GET: Customers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(customer);
         }
 
-        // POST: Employees/Delete/5
+        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
+            Customer customer = db.Customers.Find(id);
+            db.Customers.Remove(customer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

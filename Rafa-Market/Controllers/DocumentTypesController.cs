@@ -112,7 +112,16 @@ namespace Rafa_Market.Controllers
         {
             DocumentType documentType = db.DocumentTypes.Find(id);
             db.DocumentTypes.Remove(documentType);
-            db.SaveChanges();
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                
+            }
+
             return RedirectToAction("Index");
         }
 

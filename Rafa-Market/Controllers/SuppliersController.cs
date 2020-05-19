@@ -7,117 +7,111 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Rafa_Market.Data;
-using Rafa_Market.Helpers;
 using Rafa_Market.Models;
 
 namespace Rafa_Market.Controllers
 {
-    public class EmployeesController : Controller
+    public class SuppliersController : Controller
     {
         private Rafa_MarketContext db = new Rafa_MarketContext();
 
-        // GET: Employees
+        // GET: Suppliers
         public ActionResult Index()
         {
-            var employees = db.Employees.Include(e => e.DocumentType);
-            return View(employees.ToList());
+            return View(db.Suppliers.ToList());
         }
 
-        // GET: Employees/Details/5
+        // GET: Suppliers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Supplier supplier = db.Suppliers.Find(id);
+            if (supplier == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(supplier);
         }
 
-        // GET: Employees/Create
+        // GET: Suppliers/Create
         public ActionResult Create()
         {
-            ViewBag.DocumentTypeID = new SelectList(CombosHelper.GetDocumentTypes(), "DocumentTypeID", "Description");
             return View();
         }
 
-        // POST: Employees/Create
+        // POST: Suppliers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeID,FirstName,LastName,Salary,BonusPercent,DateOfBirth,StartTime,Email,URL,DocumentTypeID")] Employee employee)
+        public ActionResult Create([Bind(Include = "SupplierID,Name,ContactFirstName,ContactLastName,Phone,Address,Email")] Supplier supplier)
         {
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employee);
+                db.Suppliers.Add(supplier);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DocumentTypeID = new SelectList(CombosHelper.GetDocumentTypes(), "DocumentTypeID", "Description", employee.DocumentTypeID);
-            return View(employee);
+            return View(supplier);
         }
 
-        // GET: Employees/Edit/5
+        // GET: Suppliers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Supplier supplier = db.Suppliers.Find(id);
+            if (supplier == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", employee.DocumentTypeID);
-            return View(employee);
+            return View(supplier);
         }
 
-        // POST: Employees/Edit/5
+        // POST: Suppliers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmployeeID,FirstName,LastName,Salary,BonusPercent,DateOfBirth,StartTime,Email,URL,DocumentTypeID")] Employee employee)
+        public ActionResult Edit([Bind(Include = "SupplierID,Name,ContactFirstName,ContactLastName,Phone,Address,Email")] Supplier supplier)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
+                db.Entry(supplier).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DocumentTypeID = new SelectList(db.DocumentTypes, "DocumentTypeID", "Description", employee.DocumentTypeID);
-            return View(employee);
+            return View(supplier);
         }
 
-        // GET: Employees/Delete/5
+        // GET: Suppliers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Supplier supplier = db.Suppliers.Find(id);
+            if (supplier == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(supplier);
         }
 
-        // POST: Employees/Delete/5
+        // POST: Suppliers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
+            Supplier supplier = db.Suppliers.Find(id);
+            db.Suppliers.Remove(supplier);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -23,7 +23,7 @@ namespace Rafa_Market.Models
         public decimal Price { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy)", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy)", ApplyFormatInEditMode = true)]
         [Display(Name = "Última Compra")]
         public DateTime LastBuy { get; set; }
 
@@ -33,5 +33,7 @@ namespace Rafa_Market.Models
 
         [DataType(DataType.MultilineText)]
         public string Remarks { get; set; }
+
+        public virtual ICollection<SupplierProduct> SupplierProducts { get; set; }
     }
 }

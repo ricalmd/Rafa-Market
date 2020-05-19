@@ -28,6 +28,7 @@ namespace Rafa_Market.Models
         public decimal Salary { get; set; }
 
         [Display(Name = "Percentagem Bónus")]
+        [Range(0,20,ErrorMessage = "O valor da {0} deverá ser entre {1} e {2}")]
         public float BonusPercent { get; set; }
 
         [DataType(DataType.Date)]
@@ -45,8 +46,9 @@ namespace Rafa_Market.Models
 
         public string URL { get; set; }
 
-        [Display(Name = "Documento")]
-        [Required(ErrorMessage = "Tem que inserir um {0}")]
+        [Required(ErrorMessage = "O {0} é obrigatório")]
+        [Range(1, double.MaxValue, ErrorMessage = "Tem que selecionar um{0}")]
+        [Display(Name = "Tipo de Documento")]
         public int DocumentTypeID { get; set; }
 
         [NotMapped]
