@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Rafa_Market.Models
+namespace Rafa_Market.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {

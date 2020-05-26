@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Rafa_Market.Models;
+using Rafa_Market.ViewModels;
 
 namespace Rafa_Market.Controllers
 {
